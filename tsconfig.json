@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "declaration": true,
+    "declarationDir": "lib",
+    "jsx": "react",
+    "lib": ["dom", "esnext"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es6",
+    "outDir": "./lib",
+    "sourceMap": true,
+    "rootDir": "./src",
+    "checkJs": false,
+    "allowJs": true,
+    "removeComments": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "paths": {
+      "*": ["src/*", "node_modules/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
