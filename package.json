@@ -1,15 +1,12 @@
 {
   "name": "@panenco/pwa-utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "PWA enabling utils for Panenco react projects",
   "author": "Panenco <info@panenco.com>",
   "homepage": "https://github.com/Panenco/pwa-utils#readme",
   "license": "MIT",
   "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "repository": {
     "type": "git",
     "url": "git@github.com:Panenco/pwa-utils.git"
@@ -27,17 +24,27 @@
       "eslint --fix"
     ]
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "npm run pre-commit"
+    }
+  },
   "peerDependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "@panenco/eslint-config-react": "^1.0.3",
     "@types/react": "^16.9.14",
     "@types/react-dom": "^16.9.4",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^4.1.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "rollup": "^2.26.11",
