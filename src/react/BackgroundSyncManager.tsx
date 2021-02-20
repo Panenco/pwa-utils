@@ -1,6 +1,6 @@
 import MessageType from '../types/MessageType';
 import { useRef, useEffect } from 'react';
-import { QueuedRequestResponseMessage } from '../service-worker';
+import { QueuedRequestResponseMessage } from '../ServiceWorker';
 import ServiceWorkerMessage from '../types/ServiceWorkerMessage';
 import { useNetworkStatus } from './NetworkStatusContext';
 

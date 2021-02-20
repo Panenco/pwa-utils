@@ -1,5 +1,3 @@
-import { SerializedRequest } from './RequestSerializer';
-
 export type SerializedHeaders = Record<string, string>;
 
 export default class HeadersSerializer {

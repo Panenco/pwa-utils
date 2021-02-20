@@ -2,7 +2,7 @@ import React, { ReactNode, Component } from 'react';
 import { messageSW } from 'workbox-window/messageSW';
 import { WorkboxLifecycleWaitingEvent, WorkboxLifecycleEvent } from 'workbox-window/utils/WorkboxEvent';
 import { Workbox } from 'workbox-window/Workbox';
-import { doesDeviceSupportPWA } from '../device-support';
+import { doesDeviceSupportPWA } from '../deviceSupport';
 
 import { onVisibilityChange } from '../helpers';
 import { ServiceWorkerContext, ServiceWorkerContextType } from './ServiceWorkerContext';
