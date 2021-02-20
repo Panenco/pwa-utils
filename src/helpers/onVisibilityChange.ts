@@ -1,6 +1,7 @@
-export function onVisibilityChange(cb): () => void {
-  let hidden;
-  let visibilityChange;
+export default function onVisibilityChange(cb: () => void) {
+  let hidden: string;
+  let visibilityChange = '';
+
   if (typeof document.hidden !== 'undefined') {
     hidden = 'hidden'; // Opera 12.10 and Firefox 18 and later support
     visibilityChange = 'visibilitychange';
@@ -17,32 +18,23 @@ export function onVisibilityChange(cb): () => void {
   }
 
   const handleVisibilityChange = (): void => {
-    if (!document[hidden]) {
+    if (!Object.hasOwnProperty.call(document, hidden)) {
       cb();
     }
   };
 
+  // Fallback for non supporting browsers
+  if (!visibilityChange) {
+    document.addEventListener('focus', cb);
+
+    return () => {
+      document.removeEventListener('focus', cb);
+    };
+  }
+
   document.addEventListener(visibilityChange, handleVisibilityChange);
 
-  return (): void => {
+  return () => {
     document.removeEventListener(visibilityChange, handleVisibilityChange);
   };
-}
-
-export function isIOS(): boolean {
-  return (
-    (/ipad|iphone|ipod/gi.test(navigator.platform) ||
-      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
-    !window.MSStream
-  );
-}
-
-export function isSafari(): boolean {
-  return !!navigator.userAgent.match(/Version\/[\d.]+.*Safari/);
-}
-
-export function isStandalone(): boolean {
-  // eslint-disable-next-line
-  // @ts-ignore
-  return window.navigator?.standalone || window?.matchMedia('(display-mode: standalone)')?.matches;
 }
