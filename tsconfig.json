@@ -4,9 +4,9 @@
     "declaration": true,
     "declarationDir": "lib",
     "jsx": "react",
-    "lib": ["dom", "esnext"],
+    "lib": ["ES5","ES6","ES2015","ESNext","DOM","ScriptHost","WebWorker"],
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "target": "es6",
     "outDir": "./lib",
     "sourceMap": true,
@@ -17,11 +17,11 @@
     "strictNullChecks": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "paths": {
-      "*": ["src/*", "node_modules/*"]
-    }
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true,
+    "noUnusedLocals": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/**/*.ts",
+    "src/**/*.tsx"],
+  "exclude": ["node_modules", "lib"]
 }
