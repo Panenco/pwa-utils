@@ -5,7 +5,7 @@ import { registerRoute, NavigationRoute, setCatchHandler } from 'workbox-routing
 import { googleFontsCache } from 'workbox-recipes';
 import { NetworkOnly } from 'workbox-strategies';
 import imagesCache from './imagesCache';
-import ServiceWorkerPlugin from './ServiceWorkerPlugin';
+import ServiceWorkerPlugin from '../types/ServiceWorkerPlugin';
 import ServiceWorkerMessage from '../types/ServiceWorkerMessage';
 
 declare const self: ServiceWorkerGlobalScope;
@@ -31,7 +31,16 @@ export interface ServiceWorkerCoreOptions {
   plugins?: ServiceWorkerPlugin[];
 }
 
-export function serviceWorkerCore(options: ServiceWorkerCoreOptions = defaults) {
+export function serviceWorkerCore(outerOptions: ServiceWorkerCoreOptions = defaults) {
+  const options: ServiceWorkerCoreOptions = {
+    ...defaults,
+    ...outerOptions,
+    expiration: {
+      ...defaults.expiration,
+      ...outerOptions.expiration,
+    },
+  };
+
   /*
    * Service worker sent from page messages handling
    */

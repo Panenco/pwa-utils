@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { ChangelogEntry } from '../types/ChangelogEntry';
+import ChangelogEntry from '../types/ChangelogEntry';
 
 export type ServiceWorkerContextType = {
   isUpdateAvailable: boolean;

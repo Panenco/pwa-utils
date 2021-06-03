@@ -1,6 +1,6 @@
 {
   "name": "@panenco/pwa-utils",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "PWA enabling utils for Panenco react projects",
   "author": "Panenco <info@panenco.com>",
   "homepage": "https://github.com/Panenco/pwa-utils#readme",
@@ -11,6 +11,7 @@
     "type": "git",
     "url": "git@github.com:Panenco/pwa-utils.git"
   },
+  "sideEffects": "false",
   "scripts": {
     "build": "yarn clear && rollup -c",
     "clear": "rimraf dist lib",

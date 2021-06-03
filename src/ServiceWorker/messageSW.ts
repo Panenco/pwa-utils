@@ -1,4 +1,4 @@
-function messageSW(sw: ServiceWorker, data: any) {
+export default function messageSW(sw: ServiceWorker, data: any): Promise<any> {
   return new Promise((resolve) => {
     const messageChannel = new MessageChannel();
     messageChannel.port1.onmessage = (event) => {
@@ -7,5 +7,3 @@ function messageSW(sw: ServiceWorker, data: any) {
     sw.postMessage(data, [messageChannel.port2]);
   });
 }
-
-export default messageSW;

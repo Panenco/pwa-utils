@@ -3,11 +3,11 @@
 
 import MessageType from '../types/MessageType';
 import ServiceWorkerMessage from '../types/ServiceWorkerMessage';
-import ServiceWorkerPlugin from './ServiceWorkerPlugin';
+import ServiceWorkerPlugin from '../types/ServiceWorkerPlugin';
 
 declare const self: ServiceWorkerGlobalScope;
 
-export class VersioningPlugin implements ServiceWorkerPlugin {
+export default class VersionPlugin implements ServiceWorkerPlugin {
   version: string;
 
   constructor(version) {

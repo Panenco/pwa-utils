@@ -17,7 +17,7 @@ interface Payload {
 
 export type QueuedRequestResponseMessage = ServiceWorkerMessage<Payload>;
 
-class MouthyBackgroundSyncPlugin implements WorkboxPlugin {
+export class MouthyBackgroundSyncPlugin implements WorkboxPlugin {
   private readonly queue: Queue;
 
   private readonly externalOnSync?: QueueOptions['onSync'];
@@ -103,4 +103,3 @@ class MouthyBackgroundSyncPlugin implements WorkboxPlugin {
     }
   };
 }
-export { MouthyBackgroundSyncPlugin };

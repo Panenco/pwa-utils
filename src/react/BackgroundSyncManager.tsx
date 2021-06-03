@@ -12,12 +12,12 @@ export function usePrevious<T = any>(value: T | undefined): T | undefined {
   return ref.current;
 }
 
-type BackgroundSyncManagerProps = {
+export interface BackgroundSyncManagerProps {
   messageSW: (data: {}) => Promise<any>;
   responseHandler: (payload: QueuedRequestResponseMessage['payload']) => void;
-};
+}
 
-const BackgroundSyncManager: React.FC<BackgroundSyncManagerProps> = ({ messageSW, responseHandler }) => {
+export const BackgroundSyncManager: React.FC<BackgroundSyncManagerProps> = ({ messageSW, responseHandler }) => {
   const { online } = useNetworkStatus();
   const prevOnline = usePrevious(online);
 
@@ -55,5 +55,3 @@ const BackgroundSyncManager: React.FC<BackgroundSyncManagerProps> = ({ messageSW
 
   return null;
 };
-
-export { BackgroundSyncManager };

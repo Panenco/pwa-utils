@@ -1,15 +1,14 @@
 import React, { ReactNode, Component } from 'react';
-import { messageSW } from 'workbox-window/messageSW';
-import { WorkboxLifecycleWaitingEvent, WorkboxLifecycleEvent } from 'workbox-window/utils/WorkboxEvent';
-import { Workbox } from 'workbox-window/Workbox';
+import { Workbox } from 'workbox-window';
+
 import { doesDeviceSupportPWA } from '../deviceSupport';
-
 import { onVisibilityChange } from '../helpers';
-import { ServiceWorkerContext, ServiceWorkerContextType } from './ServiceWorkerContext';
-
-import { BackgroundSyncManager } from './BackgroundSyncManager';
-import { ChangelogEntry } from '../types/ChangelogEntry';
+import messageSW from '../ServiceWorker/messageSW';
+import ChangelogEntry from '../types/ChangelogEntry';
 import MessageType from '../types/MessageType';
+
+import { ServiceWorkerContext, ServiceWorkerContextType } from './ServiceWorkerContext';
+import { BackgroundSyncManager, BackgroundSyncManagerProps } from './BackgroundSyncManager';
 
 declare global {
   interface Window {
@@ -21,7 +20,7 @@ type ServiceWorkerManagerProps = {
   children: ReactNode;
   scope: string;
   useCustomInstall: boolean;
-  backgroundResponseHandler?: () => void;
+  backgroundResponseHandler?: BackgroundSyncManagerProps['responseHandler'];
 };
 
 type ServiceWorkerManagerState = {
@@ -130,7 +129,7 @@ export class ServiceWorkerManager extends Component<ServiceWorkerManagerProps, S
     return changelog;
   };
 
-  onServiceWorkerWaiting = async (event: WorkboxLifecycleWaitingEvent) => {
+  onServiceWorkerWaiting = async (event: import('workbox-window/utils/WorkboxEvent').WorkboxLifecycleWaitingEvent) => {
     if (process.env.DEBUG) {
       console.group('Service Worker waiting event:');
       console.dir(event);
@@ -154,7 +153,7 @@ export class ServiceWorkerManager extends Component<ServiceWorkerManagerProps, S
     window.location.reload();
   };
 
-  onServiceWorkerActivated = (event: WorkboxLifecycleEvent) => {
+  onServiceWorkerActivated = (event: import('workbox-window/utils/WorkboxEvent').WorkboxLifecycleEvent) => {
     if (event.sw) {
       messageSW(event.sw, { type: MessageType.CLIENTS_CLAIM });
     }

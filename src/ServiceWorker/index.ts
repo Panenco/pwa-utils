@@ -1,6 +1,8 @@
 export * from './BackgroundSyncPlugin';
 export * from './serviceWorkerCore';
-export * from './UpdatePlugin';
-export * from './VersionPlugin';
-export * from './ChangeLogPlugin';
-export * from './apiResourcesCache';
+export { default as UpdatePlugin } from './UpdatePlugin';
+export { default as VersionPlugin } from './VersionPlugin';
+export { default as ChangeLogPlugin } from './ChangeLogPlugin';
+export { default as apiResourcesCache } from './apiResourcesCache';
+export { default as forcedInstallation } from './forcedInstallation';
+export { default as imagesCache } from './imagesCache';
