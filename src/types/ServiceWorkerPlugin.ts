@@ -1,4 +1,4 @@
-import ServiceWorkerMessage from '../types/ServiceWorkerMessage';
+import ServiceWorkerMessage from './ServiceWorkerMessage';
 
 export default interface ServiceWorkerPlugin {
   handleMessage(message: ServiceWorkerMessage<any>): Promise<any>;

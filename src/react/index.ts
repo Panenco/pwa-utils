@@ -3,3 +3,4 @@ export * from './ServiceWorkerContext';
 export * from './BackgroundSyncManager';
 export * from './NetworkStatusContext';
 export * from './NetworkStatusProvider';
+export * from './useLockOrientation';

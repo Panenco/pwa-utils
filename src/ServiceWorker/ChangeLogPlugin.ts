@@ -3,12 +3,12 @@
 
 import MessageType from '../types/MessageType';
 import ServiceWorkerMessage from '../types/ServiceWorkerMessage';
-import { ChangelogEntry } from '../types/ChangelogEntry';
-import ServiceWorkerPlugin from './ServiceWorkerPlugin';
+import ChangelogEntry from '../types/ChangelogEntry';
+import ServiceWorkerPlugin from '../types/ServiceWorkerPlugin';
 
 declare const self: ServiceWorkerGlobalScope;
 
-export class ChangeLogPlugin implements ServiceWorkerPlugin {
+export default class ChangeLogPlugin implements ServiceWorkerPlugin {
   private readonly releases: ChangelogEntry[];
 
   /*
