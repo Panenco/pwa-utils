@@ -90,7 +90,7 @@ export class ServiceWorkerManager extends Component<ServiceWorkerManagerProps, S
   }
 
   checkForUpdate = async () => {
-    if (!this.registration || !this.workbox) return;
+    if (!this.registration || !this.workbox || !navigator.onLine) return;
 
     if (process.env.DEBUG) {
       console.log('Checking for update...');
@@ -99,6 +99,10 @@ export class ServiceWorkerManager extends Component<ServiceWorkerManagerProps, S
     try {
       await this.workbox.update();
     } catch (error) {
+      console.error({ serviceWorkerUpdateError: error });
+      if (!navigator.onLine) {
+        return;
+      }
       const registrations = await navigator.serviceWorker.getRegistrations();
       await Promise.allSettled(registrations.map((registration) => registration.unregister()));
       window.location.reload();
