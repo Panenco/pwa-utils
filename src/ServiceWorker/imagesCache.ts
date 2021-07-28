@@ -4,7 +4,7 @@ import { registerRoute } from 'workbox-routing';
 import { CacheFirst } from 'workbox-strategies';
 
 const matchCallback = ({ url, sameOrigin, request }) =>
-  (!sameOrigin && /\.(?:png|gif|jpg|jpeg|webp|svg)/i.test(url.pathname)) || request.destination === 'image';
+  !sameOrigin && (/\.(?:png|gif|jpg|jpeg|webp|svg)/i.test(url.pathname) || request.destination === 'image');
 const maxAgeSeconds = 30 * 24 * 60 * 60;
 const maxEntries = 60;
 
