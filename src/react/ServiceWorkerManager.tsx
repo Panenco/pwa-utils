@@ -103,8 +103,6 @@ export class ServiceWorkerManager extends Component<ServiceWorkerManagerProps, S
       if (!navigator.onLine) {
         return;
       }
-      const registrations = await navigator.serviceWorker.getRegistrations();
-      await Promise.allSettled(registrations.map((registration) => registration.unregister()));
       window.location.reload();
     }
 
