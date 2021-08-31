@@ -1,4 +1,4 @@
-import React, { ReactNode, Component } from 'react';
+import React, { Component, ReactNode } from 'react';
 import { Workbox } from 'workbox-window';
 
 import { doesDeviceSupportPWA } from '../deviceSupport';
@@ -6,9 +6,8 @@ import { onVisibilityChange } from '../helpers';
 import messageSW from '../ServiceWorker/messageSW';
 import ChangelogEntry from '../types/ChangelogEntry';
 import MessageType from '../types/MessageType';
-
-import { ServiceWorkerContext, ServiceWorkerContextType } from './ServiceWorkerContext';
 import { BackgroundSyncManager, BackgroundSyncManagerProps } from './BackgroundSyncManager';
+import { ServiceWorkerContext, ServiceWorkerContextType } from './ServiceWorkerContext';
 
 declare global {
   interface Window {
@@ -177,33 +176,43 @@ export class ServiceWorkerManager extends Component<ServiceWorkerManagerProps, S
     });
   };
 
-  async initServiceWorker(): Promise<void> {
-    if ((process.env.NODE_ENV === 'production' || process.env.DEBUG) && 'serviceWorker' in navigator) {
+  initServiceWorker(): void {
+    if ('serviceWorker' in navigator) {
       const { scope } = this.props;
 
       this.workbox = new Workbox('/service-worker.js', { scope });
       this.workbox.addEventListener('waiting', this.onServiceWorkerWaiting);
       this.workbox.addEventListener('controlling', this.onServiceWorkerControlling);
       this.workbox.addEventListener('activated', this.onServiceWorkerActivated);
-      this.registration = await this.workbox.register();
+      this.workbox
+        .register()
+        .then((registration) => {
+          this.registration = registration;
 
-      if (process.env.DEBUG) {
-        console.group('Service Worker was registered');
-        console.dir(this.registration);
-        console.groupEnd();
-      }
+          if (process.env.DEBUG) {
+            console.group('Service Worker was registered');
+            console.dir(this.registration);
+            console.groupEnd();
+          }
 
-      const version = await this.getServiceWorkerVersion();
+          this.getServiceWorkerVersion()
+            .then((version) => {
+              this.setState({
+                version,
+              });
+              const removeVisibilityChangeListener = onVisibilityChange(this.checkForUpdate);
 
-      this.setState({
-        version,
-      });
-
-      const removeVisibilityChangeListener = onVisibilityChange(this.checkForUpdate);
-
-      this.clearListeners = () => {
-        removeVisibilityChangeListener();
-      };
+              this.clearListeners = () => {
+                removeVisibilityChangeListener();
+              };
+            })
+            .catch((e) => {
+              console.log('workbox get version failed', e);
+            });
+        })
+        .catch((e) => {
+          console.error('servicebox registration failed', e);
+        });
     }
   }
 
